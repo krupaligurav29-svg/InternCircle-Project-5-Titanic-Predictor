@@ -15,7 +15,12 @@ FEATURES = ["pclass", "sex", "age", "fare"]
 # Load model only once
 @st.cache_resource
 def load_model():
-    return joblib.load("model.joblib")
+    from pathlib import Path
+
+@st.cache_resource
+def load_model():
+    model_path = Path(__file__).parent / "model.joblib"
+    return joblib.load(model_path)
 
 
 # Application title
