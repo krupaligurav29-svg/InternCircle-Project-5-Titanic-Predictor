@@ -105,16 +105,13 @@ if st.button("Predict Survival", type="primary"):
         else:
             st.warning("The model predicts: Did Not Survive")
 
-    except FileNotFoundError:
-        st.error(
-            "The model file is missing. "
-            "Please add model.joblib to the project folder."
-        )
+        except FileNotFoundError:
+        st.error("The model file is missing. Please add model.joblib to the project folder.")
+        st.stop()
 
     except Exception as e:
-    st.error("Unable to generate the prediction.")
-    st.exception(e)
-
+        st.error("Unable to generate the prediction.")
+        st.exception(e)
 # Educational note
 st.divider()
 
