@@ -69,30 +69,24 @@ fare = st.slider(
 st.divider()
 
 # Prediction button
-if st.button("Predict Survival", type="primary"):
 
+if st.button("Predict Survival", type="primary"):
     try:
-        # Load saved model
         model = load_model()
 
-        # Convert gender into the same encoding as Project 4
         sex_value = 1 if sex == "Female" else 0
 
-        # Create input DataFrame in the correct feature order
         input_data = pd.DataFrame(
             [[pclass, sex_value, age, fare]],
             columns=FEATURES
         )
 
-        # Validate input values
         if input_data.isnull().any().any():
             st.error("Please provide valid passenger details.")
             st.stop()
 
-        # Predict survival probability
         probability = model.predict_proba(input_data)[0][1]
 
-        # Display result
         st.subheader("Prediction Result")
 
         st.metric(
@@ -105,19 +99,16 @@ if st.button("Predict Survival", type="primary"):
         else:
             st.warning("The model predicts: Did Not Survive")
 
-        except FileNotFoundError:
-        st.error("The model file is missing. Please add model.joblib to the project folder.")
-        st.stop()
+    except FileNotFoundError:
+        st.error("Model file is missing. Please check model.joblib.")
 
     except Exception as e:
         st.error("Unable to generate the prediction.")
         st.exception(e)
-# Educational note
+
 st.divider()
 
 st.caption(
     "This application uses a Decision Tree model trained on "
-    "historical Titanic passenger data. It is an educational "
-    "example and should not be treated as advice or a reliable "
-    "prediction of real-world outcomes."
+    "historical Titanic passenger data. It is an educational example."
 )
