@@ -112,10 +112,8 @@ if st.button("Predict Survival", type="primary"):
         )
 
     except Exception as e:
-        st.error(
-            "Unable to generate the prediction. "
-            "Please check the model and input values."
-        )
+    st.error("Unable to generate the prediction.")
+    st.exception(e)
 
 # Educational note
 st.divider()
